@@ -1,0 +1,39 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/darshit/assignment/url-shortner-api/logs/.23ab4ddde974f5d2ecb57d9aa45e61f93e14e593-audit.json",
+    "files": [
+        {
+            "date": 1585383083940,
+            "name": "/home/darshit/assignment/url-shortner-api/logs/error.2020-03-28-13.log",
+            "hash": "03453b341a603c455fcec3da85d840c5"
+        },
+        {
+            "date": 1585384204225,
+            "name": "/home/darshit/assignment/url-shortner-api/logs/error.2020-03-28-14.log",
+            "hash": "2c12eebc9a2128475e4ac49686fa689b"
+        },
+        {
+            "date": 1585387974822,
+            "name": "/home/darshit/assignment/url-shortner-api/logs/error.2020-03-28-15.log",
+            "hash": "9413bf32424f5dc533eda28357138d17"
+        },
+        {
+            "date": 1585391524644,
+            "name": "/home/darshit/assignment/url-shortner-api/logs/error.2020-03-28-16.log",
+            "hash": "bf301d201d56f8fe71f8fa66a5d1bd82"
+        },
+        {
+            "date": 1585396373050,
+            "name": "/home/darshit/assignment/url-shortner-api/logs/error.2020-03-28-17.log",
+            "hash": "05679ca7aec92834535c1d982ae3b74e"
+        },
+        {
+            "date": 1585398683745,
+            "name": "/home/darshit/assignment/url-shortner-api/logs/error.2020-03-28-18.log",
+            "hash": "71e0693fa9a37aa7038e6822783c7f2d"
+        }
+    ]
+}
