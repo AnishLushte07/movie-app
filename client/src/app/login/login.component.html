@@ -1,0 +1,24 @@
+<div class="login-container">
+    <form [formGroup]="login" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Email" formControlName="email" class="login-inputs" id="login-email">
+        </mat-form-field>
+        <div class="error-div" *ngIf="login.get('email').errors && login.get('email').touched" class="form-errors">
+            <span *ngIf="login.get('email').errors.required">Email is Required</span>
+        </div>
+        <div class="error-div" *ngIf="login.get('email').errors && login.get('email').touched" class="form-errors">
+            <span *ngIf="login.get('email').errors.pattern">Invalid Email</span>
+        </div>
+        <mat-form-field class="m-t-20" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" placeholder="Password" formControlName="password" class="login-inputs" id="login-password">
+        </mat-form-field>
+        <div class="error-div" *ngIf="login.get('password').errors && login.get('password').touched" class="form-errors">
+            <span *ngIf="login.get('password').errors.required">Password is Required</span>
+        </div>
+        <div class="m-t-20">
+            <button mat-raised-button [disabled]="!login.valid" type="submit">Login</button>
+        </div>
+    </form>
+</div>

@@ -1,12 +1,29 @@
 version: "3"
 
 services:
-  url-shortener:
-    container_name: node-url-shorten
+  movie-api:
+    container_name: movie-api
     restart: always
     build: .
     env_file: .env
     volumes:
-      - '${LOG_VOLUME}:/usr/src/node-url-shorten/logs'
+      - ./logs:/usr/src/app/logs
+      - ./src:/usr/src/app/src
     ports:
-      -  '${PORT}:${PORT}'
+      - '${PORT}:${PORT}'
+    links:
+      - mongo
+    depends_on:
+      - mongo
+  mongo:
+    container_name: movie-mongo
+    image: mongo:3.6.17
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=movies
+    volumes:
+      - ./data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    ports:
+      - 27020:27017

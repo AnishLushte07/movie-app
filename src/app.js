@@ -17,6 +17,8 @@ function startServer() {
   });
 }
 
+console.log(config.DB_URL)
+
 mongoose.connect(config.DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

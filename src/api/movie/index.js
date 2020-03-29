@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', controller.index);
 
-router.use(authenticate);
+// router.use(authenticate);
 
 router.post('/', controller.create);
 

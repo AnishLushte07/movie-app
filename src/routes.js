@@ -11,6 +11,7 @@ module.exports = (app) => {
 
   app.use('/api/movies', require('./api/movie'));
   app.use('/api/user', require('./api/user'));
+  app.use('/api/genre', require('./api/genre'));
 
   // All undefined asset or api routes should return a 404
   // eslint-disable-next-line no-unused-vars

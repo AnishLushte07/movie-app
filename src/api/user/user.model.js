@@ -6,9 +6,13 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
+
+
 const { JWT_KEY, SALT } = require('../../config/environment');
 const Schema = mongoose.Schema;
-
+console.log(crypto.createHash('md5')
+.update(SALT + '1234')
+.digest('hex'))
 const options = {
     versionKey : false,
 };

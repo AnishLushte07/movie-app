@@ -1,11 +1,11 @@
 const _ = require('lodash');
 
 const MovieModel = require('./movie.model');
-const GenerModel = require('../gener/gener.model');
+const GenreModel = require('../genre/genre.model');
 
 async function index(req, res, next) {
     try {
-        const { genre, search } = req.query;
+        const { genre, search, page, sort, order } = req.query;
 
         const query = Object.assign({
             deleted_on: null
@@ -22,9 +22,15 @@ async function index(req, res, next) {
             : {},
         );
 
-        const movies = await MovieModel.find(query);
+        const [movies, total] = await Promise.all([
+            MovieModel.find(query)
+                .skip((page - 1) * 10)
+                .limit(10)
+                .sort({ [sort]: order === 'asc' ? 1 : -1 }),
+            MovieModel.count(query),
+        ]);
 
-        return res.json(movies);
+        return res.json({ movies, total });
     } catch (err) {
         return next(err);
     }
@@ -79,7 +85,7 @@ async function update(req, res, next) {
             _.pick(body, requiredKeys)
         );
 
-        if (body.new_geners) GenerModel.addNew(body.new_geners);
+        if (body.new_genres) GenreModel.addNew(body.new_genres);
 
         return res.sendStatus(204);
     } catch (err) {

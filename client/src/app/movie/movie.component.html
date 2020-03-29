@@ -1,0 +1,60 @@
+<div class="movie-container">
+    <form [formGroup]="movie" (ngSubmit)="onSubmit()" fxLayout="column" >
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput type="text" placeholder="Name" formControlName="name" class="movie-inputs" id="movie-email">
+        </mat-form-field>
+        <div class="error-div" *ngIf="movie.get('name').errors && movie.get('name').touched" class="form-errors">
+            <span *ngIf="movie.get('name').errors.required">Movie name is Required</span>
+        </div>
+        <mat-form-field class="m-t-20">
+            <mat-label>Director</mat-label>
+            <input matInput type="text" placeholder="Director" formControlName="director" class="movie-inputs" id="movie-password">
+        </mat-form-field>
+        <div class="error-div" *ngIf="movie.get('director').errors && movie.get('director').touched" class="form-errors">
+            <span *ngIf="movie.get('director').errors.required">Director name is Required</span>
+        </div>
+        <mat-form-field class="m-t-20">
+            <mat-label>IMDB Score</mat-label>
+            <input matInput type="text" placeholder="IMDB score" formControlName="imdb_score" class="movie-inputs" id="movie-password">
+        </mat-form-field>
+        <div class="error-div" *ngIf="movie.get('imdb_score').errors && movie.get('imdb_score').touched" class="form-errors">
+            <span *ngIf="movie.get('imdb_score').errors.required">IMDB score is Required</span>
+        </div>
+        <mat-form-field class="m-t-20">
+            <mat-label>99popularity</mat-label>
+            <input matInput type="text" placeholder="99popularity" formControlName="99popularity" class="movie-inputs" id="movie-password">
+        </mat-form-field>
+        <div class="error-div" *ngIf="movie.get('99popularity').errors && movie.get('99popularity').touched" class="form-errors">
+            <span *ngIf="movie.get('99popularity').errors.required">99popularity is Required</span>
+        </div>
+        <mat-form-field class="example-chip-list">
+            <mat-chip-list #chipList aria-label="Genre selection">
+              <mat-chip
+                *ngFor="let genre of genres"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="remove(genre)">
+                {{genre}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input
+                placeholder="New genre..."
+                #genreInput
+                [formControl]="genreCtrl"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let genre of filteredGenres | async" [value]="genre">
+                {{genre}}
+              </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <div class="m-t-20">
+            <button mat-raised-button [disabled]="!movie.valid" type="submit">Save</button>
+        </div>
+    </form>
+</div>

@@ -10,15 +10,15 @@ const options = {
     versionKey : false,
 };
 
-const GenerSchema = new Schema({
+const GenreSchema = new Schema({
     name: { type : String },
 	created_on: { type: Date, default: Date.now },
 }, options);
 
-GenerSchema.statics.addNew = async (geners) => {
-    Gener.create(geners.map(v => ({ name: v })));
+GenreSchema.statics.addNew = async (genres) => {
+    Genre.create(genres.map(v => ({ name: v })));
 }
 
-const Gener = mongoose.model('Gener', GenerSchema);
+const Genre = mongoose.model('Genre', GenreSchema);
 
-module.exports = Gener;
+module.exports = Genre;
