@@ -14,6 +14,10 @@ Clone repository
 
     https://github.com/AnishLushte07/movie-app.git
 
+    npm install
+
+    npm run start
+
 ## Usage
 
 Visit http://localhost:5000

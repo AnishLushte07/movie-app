@@ -7,8 +7,18 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/AnishLushte07/movie-app.git"
+  },
+  "keywords": [
+    "movie",
+    "rating",
+    "bollyood",
+    "genre"
+  ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -23,5 +33,8 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
+  },
+  "bugs": {
+    "url": "https://github.com/AnishLushte07/movie-app/issues"
   }
 }
