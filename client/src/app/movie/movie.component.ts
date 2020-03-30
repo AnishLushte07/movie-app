@@ -38,8 +38,9 @@ export class MovieComponent implements OnInit {
     private http: HttpClient,
   ) { 
       this.data = this.data || {};
+      this.isEdit = !!this.data._id;
       this.movie = new FormGroup({
-        name: new FormControl(null, [Validators.required]),
+        name: new FormControl({ value: null, disabled: this.isEdit }, [Validators.required]),
         director: new FormControl(null, [Validators.required]),
         imdb_score: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+(.[0-9]{0,2})?$')]),
         '99popularity': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+(.[0-9]{0,2})?$')]),
@@ -52,7 +53,6 @@ export class MovieComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.isEdit = !!this.data._id; 
     this.genres = this.data.genre || [];
     this.genre.fetchList()
       .subscribe((data: any)  => {
@@ -132,6 +132,7 @@ export class MovieComponent implements OnInit {
         )
         .subscribe(
           () => {
+            if (this.newGenres) this.genre.updateGenres(this.newGenres);
             this.dialogRef.close(this.movie.value);
           },
             (err) => console.log(err)

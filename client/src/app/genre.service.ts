@@ -29,4 +29,8 @@ export class GenreService {
             catchError(err => throwError(err.error))
         ));
   }
+
+  updateGenres(genres) {
+    this.data.push(...genres);
+  }
 }

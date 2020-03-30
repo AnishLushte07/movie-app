@@ -111,14 +111,13 @@ export class HomeComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (row._id && result) {
-        row.name = result.name;
         row.director = result.director;
         row.imdb_score.$numberDecimal = result.imdb_score;
         row['99popularity'].$numberDecimal = result['99popularity'];
         row.genre = result.genre.slice();
-
-        this.showError('Movie details updated.');
       }
+
+      if (result) this.showError('Movie details updated.');
     }); 
   }
 

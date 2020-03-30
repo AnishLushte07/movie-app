@@ -308,10 +308,15 @@
     <span>Movie App</span>
   </a>
   <div class="spacer"></div>
-  <button mat-button [matMenuTriggerFor]="menu">Admin</button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="auth.logout()">Logout</button>
-  </mat-menu>
+  <div *ngIf="isLoggedIn">
+    <button mat-button [matMenuTriggerFor]="menu">
+      <span>{{name | titlecase}}</span>    
+      <mat-icon aria-hidden="false" aria-label="Example home icon">expand_more</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="auth.logout()">Logout</button>
+    </mat-menu>
+  </div>
 </div>
 
 <div class="content">

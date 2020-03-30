@@ -6,16 +6,19 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
-
-
 const { JWT_KEY, SALT } = require('../../config/environment');
+
 const Schema = mongoose.Schema;
-console.log(crypto.createHash('md5')
-.update(SALT + '1234')
-.digest('hex'))
+
 const options = {
     versionKey : false,
 };
+
+async function hashPassword(pass) {
+    return crypto.createHash('md5')
+        .update(SALT + pass)
+        .digest('hex');
+}
 
 const UserSchema = new Schema({
     name: { type : String },
@@ -24,6 +27,12 @@ const UserSchema = new Schema({
 	created_on: { type : Date, default: Date.now },
 }, options);
 
+UserSchema.pre('save', async function(next) {
+    const hashedPass = await hashPassword(this.password);
+    this.password = hashedPass;
+    console.log(this.name)
+    next();
+});
 
 UserSchema.methods.generateToken = async function() {
     const user = this;
@@ -38,9 +47,7 @@ UserSchema.statics.findByCredential = async (email, pass) => {
         throw new Error('Invalid Credentials');
     }
 
-    const hashedPass = crypto.createHash('md5')
-        .update(SALT + pass)
-        .digest('hex');
+    const hashedPass = await hashPassword(pass);
 
     if (hashedPass !== user.password) {
         throw new Error('Invalid Credentials');

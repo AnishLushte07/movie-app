@@ -53,8 +53,8 @@ export class AuthService {
     })
         .pipe(map(
             (res: any) => {
-                console.log(res)
-                localStorage.setItem('token', res);
+                localStorage.setItem('token', res.token);
+                localStorage.setItem('user', JSON.stringify(res.user));
                 this.setAuth();
                 return res;
             }),

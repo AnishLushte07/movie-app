@@ -1,29 +1,35 @@
 version: "3"
 
 services:
-  movie-api:
-    container_name: movie-api
+  # movie-api:
+  #   container_name: movie-api
+  #   restart: always
+  #   build: .
+  #   env_file: .env
+  #   volumes:
+  #     - ./logs:/usr/src/app/logs
+  #     - ./src:/usr/src/app/src
+  #   ports:
+  #     - '${PORT}:${PORT}'
+  #   links:
+  #     - mongo
+  #   depends_on:
+  #     - mongo
+  # mongo:
+  #   container_name: movie-mongo
+  #   image: mongo:3.6.17
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+  #     - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+  #     - MONGO_INITDB_DATABASE=movies
+  #   volumes:
+  #     - ./data:/data/db
+  #     - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+  #   ports:
+  #     - 27020:27017
+  movie-client:
+    container_name: movie-client
     restart: always
-    build: .
-    env_file: .env
-    volumes:
-      - ./logs:/usr/src/app/logs
-      - ./src:/usr/src/app/src
+    build: client/.
     ports:
-      - '${PORT}:${PORT}'
-    links:
-      - mongo
-    depends_on:
-      - mongo
-  mongo:
-    container_name: movie-mongo
-    image: mongo:3.6.17
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
-      - MONGO_INITDB_DATABASE=movies
-    volumes:
-      - ./data:/data/db
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-    ports:
-      - 27020:27017
+      - 4200:4200 

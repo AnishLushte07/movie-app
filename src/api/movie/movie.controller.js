@@ -46,7 +46,9 @@ async function create(req, res, next) {
 
         await MovieModel.create(body);
 
-        return res.sendStatus(201);
+        if (body.new_genres) GenreModel.addNew(body.new_genres);
+
+        return res.json();
     } catch (err) {
         return next(err);
     }
