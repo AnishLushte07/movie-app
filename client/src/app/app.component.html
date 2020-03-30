@@ -314,6 +314,7 @@
       <mat-icon aria-hidden="false" aria-label="Example home icon">expand_more</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="addUser()">Add User</button>
       <button mat-menu-item (click)="auth.logout()">Logout</button>
     </mat-menu>
   </div>

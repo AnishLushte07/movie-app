@@ -1,24 +1,17 @@
-<div class="login-container">
+<div class="login-container mat-elevation-z8">
+    <p>Login</p>
     <form [formGroup]="login" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
             <input matInput placeholder="Email" formControlName="email" class="login-inputs" id="login-email">
+            <mat-error *ngIf="login.get('email').invalid">Email is required</mat-error>
         </mat-form-field>
-        <div class="error-div" *ngIf="login.get('email').errors && login.get('email').touched" class="form-errors">
-            <span *ngIf="login.get('email').errors.required">Email is Required</span>
-        </div>
-        <div class="error-div" *ngIf="login.get('email').errors && login.get('email').touched" class="form-errors">
-            <span *ngIf="login.get('email').errors.pattern">Invalid Email</span>
-        </div>
-        <mat-form-field class="m-t-20" appearance="outline">
+        <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
             <input matInput type="password" placeholder="Password" formControlName="password" class="login-inputs" id="login-password">
+            <mat-error *ngIf="login.get('password').invalid">Password is required</mat-error>
         </mat-form-field>
-        <div class="error-div" *ngIf="login.get('password').errors && login.get('password').touched" class="form-errors">
-            <span *ngIf="login.get('password').errors.required">Password is Required</span>
-        </div>
-        <div class="m-t-20">
-            <button mat-raised-button [disabled]="!login.valid" type="submit">Login</button>
-        </div>
+        <button mat-raised-button color="primary" [disabled]="!login.valid" type="submit">Login</button>
+        <mat-error class="mt-15" *ngIf="errMsg">{{errMsg}}</mat-error>
     </form>
 </div>

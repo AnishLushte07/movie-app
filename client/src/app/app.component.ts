@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { UserComponent } from './user/user.component';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +15,8 @@ export class AppComponent implements OnInit {
   name;
 
   constructor(
-    public auth: AuthService
+    public auth: AuthService,
+    private dialog: MatDialog,
   ) {
     
   }
@@ -26,5 +29,9 @@ export class AppComponent implements OnInit {
         this.name = JSON.parse(userName).name;
       }
     });
+  }
+
+  addUser() {
+    const dialogRef = this.dialog.open(UserComponent);
   }
 }

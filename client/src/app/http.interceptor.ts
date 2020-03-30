@@ -42,8 +42,8 @@ export class HttpTokenInterceptor implements HttpInterceptor {
   private addAuthorizationHeader(request: HttpRequest<any>): HttpRequest<any> {
     if (request.url.indexOf('/api') && !localStorage.getItem('token')) {
         const location = window.location;
-
-        location.href = `http://localhost:4200/login`;
+        
+        this.router.navigateByUrl(`/login`);
         return null;
     }
 

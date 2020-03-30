@@ -2,8 +2,6 @@ const path = require('path');
 const dotenv = require('dotenv');
 const _ = require('lodash');
 
-const root = path.normalize(`${__dirname}/../../..`);
-
 const env = !process.env.DB_URL ? dotenv.config({}).parsed: {};
 
 const all = {
@@ -13,9 +11,8 @@ const all = {
   ip: process.env.IP || '0.0.0.0',
   DB_URL: process.env.DB_URL,
   DOMAIN: process.env.DOMAIN,
-  root,
-  JWT_KEY: 'lkajkdfjlkasj fkljlkadsjlk',
-  SALT: 'sdljlskdjfklsdlkflklklk'
+  JWT_KEY: process.env.JWT_KEY,
+  SALT: process.env.SALT,
 };
 
 module.exports = _.merge(

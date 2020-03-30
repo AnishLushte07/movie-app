@@ -6,7 +6,7 @@ const { NODE_ENV, root } = require('../../config/environment');
 const logger = winston.createLogger({
   transports: [
     new DailyRotateFile({
-      datePattern: 'YYYY-MM-DD-HH',
+      datePattern: 'YYYY-MM-DD',
       filename: `${root}/logs/error.%DATE%.log`,
       maxFiles: '14d',
     }),

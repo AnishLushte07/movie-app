@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 
 // import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
 
 // Buttons & Indicators
 
@@ -15,7 +14,6 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
-import { MatCardModule } from '@angular/material/card';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -34,7 +32,7 @@ import { MatMenuModule } from '@angular/material/menu'
 
 @NgModule({
   imports: [
-    MatButtonModule, MatIconModule, MatSidenavModule, MatListModule,
+    MatButtonModule, MatIconModule, MatListModule,
     MatToolbarModule, MatDividerModule, MatFormFieldModule, MatInputModule,
     MatProgressSpinnerModule, MatSortModule, MatTableModule, MatPaginatorModule,
     MatDialogModule, MatAutocompleteModule, MatChipsModule, MatSnackBarModule,
@@ -42,7 +40,7 @@ import { MatMenuModule } from '@angular/material/menu'
     
   ],
   exports: [
-    MatButtonModule, MatIconModule, MatSidenavModule, MatListModule,
+    MatButtonModule, MatIconModule, MatListModule,
     MatToolbarModule, MatDividerModule, MatFormFieldModule, MatInputModule,
     MatProgressSpinnerModule, MatSortModule, MatTableModule, MatPaginatorModule,
     MatDialogModule, MatAutocompleteModule, MatChipsModule, MatSnackBarModule,

@@ -13,7 +13,8 @@ import { Router } from '@angular/router';
 
 export class LoginComponent implements OnInit {
   login: FormGroup;
- 
+  errMsg = null;
+
   constructor(
     private auth: AuthService,
     private snackBar: MatSnackBar,
@@ -32,10 +33,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.login.value)
       .subscribe(
         (data) => this.route.navigateByUrl('/'),
-        (err) => {
-        this.snackBar.open(err.message, null, {
-          duration: 2000,
-        });
-      })
+        (err) => this.errMsg = err.message
+        )
   }
 }

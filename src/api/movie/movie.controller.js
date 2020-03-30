@@ -10,7 +10,7 @@ async function index(req, res, next) {
         const query = Object.assign({
             deleted_on: null
         },
-        genre ? { genre: { $all: genre.split(',') } } : {},
+        genre ? { genre: { $in: genre.split(',') } } : {},
         search 
             ? {
                 $or: [{

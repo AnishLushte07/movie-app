@@ -22,7 +22,7 @@ import { GenreService } from '../genre.service';
 
 export class HomeComponent implements AfterViewInit {
   displayedColumns: string[] = ['name', 'imdb_score', 'genre', 'director', '99popularity'];
-  exampleDatabase: ExampleHttpDatabase | null;
+  movieDatabase: MovieHttpDatabase | null;
   resultsLength = 0;
   isLoadingResults = true;
   search = '';
@@ -58,15 +58,16 @@ export class HomeComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.exampleDatabase = new ExampleHttpDatabase(this._httpClient);
+    this.movieDatabase = new MovieHttpDatabase(this._httpClient);
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.clickStream.subscribe(() => this.paginator.pageIndex = 0);
 
     merge(this.sort.sortChange, this.paginator.page, this.clickStream)
       .pipe(
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.exampleDatabase!.getRepoIssues(
+          return this.movieDatabase.getMovies(
             this.sort.active,
             this.sort.direction,
             this.paginator.pageIndex,
@@ -143,10 +144,13 @@ export class HomeComponent implements AfterViewInit {
     });
   }
 
-
-  // filter
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.genres.push(event.option.viewValue);
+    const value = event.option.viewValue;
+    const lValue = value.toLowerCase();
+    const exist = this.genres.some(genre => genre.toLowerCase() === lValue);
+    if (!exist) {
+      this.genres.push(value);
+    }
     this.genreInput.nativeElement.value = '';
     this.genreCtrl.setValue(null);
   }
@@ -166,12 +170,12 @@ export class HomeComponent implements AfterViewInit {
   }
 }
 
-export class ExampleHttpDatabase {
+export class MovieHttpDatabase {
   headers: HttpHeaders = new HttpHeaders();
 
   constructor(private _httpClient: HttpClient) {}
 
-  getRepoIssues(
+  getMovies(
     sort: string, order: string, page: number, search: string, genre: string
   ): Observable<any> {
     const href = 'http://localhost:5000/api/movies';

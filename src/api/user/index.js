@@ -4,7 +4,7 @@ const authenticate = require('../../components/authenticate');
 
 const router = express.Router();
 
-router.post('/', authenticate, controller.create);
 router.post('/login', controller.login);
+router.post('/', authenticate, controller.create);
 
 module.exports = router;

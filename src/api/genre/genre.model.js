@@ -16,7 +16,7 @@ const GenreSchema = new Schema({
 }, options);
 
 GenreSchema.statics.addNew = async (genres) => {
-    Genre.create(genres.map(v => ({ name: v })));
+    Genre.create(genres.map(v => ({ name: v.trim() })));
 }
 
 const Genre = mongoose.model('Genre', GenreSchema);

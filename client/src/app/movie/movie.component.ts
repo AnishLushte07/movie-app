@@ -27,6 +27,7 @@ export class MovieComponent implements OnInit {
   allGenres: string[] = [];
   newGenres = [];
   isEdit = false;
+  type = 'Add';
 
   @ViewChild('genreInput') genreInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -61,6 +62,7 @@ export class MovieComponent implements OnInit {
       });
     
     if (this.isEdit) {
+      this.type = 'Edit';
       this.movie.patchValue({
         name: this.data.name,
         director: this.data.director,
@@ -75,13 +77,15 @@ export class MovieComponent implements OnInit {
     const input = event.input;
     const value = event.value;
 
-    // Add our fruit
     if ((value || '').trim()) {
-      this.genres.push(value.trim());
-      this.newGenres.push(value.trim());
+      const lValue = value.trim().toLowerCase();
+      const exist = this.allGenres.some(genre => genre.toLowerCase() === lValue);
+      if (!exist) {
+        this.genres.push(value.trim());
+        this.newGenres.push(value.trim());
+      }
     }
 
-    // Reset the input value
     if (input) {
       input.value = '';
     }
@@ -91,14 +95,22 @@ export class MovieComponent implements OnInit {
 
   remove(genre: string): void {
     const index = this.genres.indexOf(genre);
-
+    const newIndex = this.newGenres.indexOf(genre);
+ 
     if (index >= 0) {
       this.genres.splice(index, 1);
+      this.newGenres.splice(newIndex, 1);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.genres.push(event.option.viewValue);
+    const value = event.option.viewValue;
+    const lValue = value.toLowerCase();
+    const exist = this.genres.some(genre => genre.toLowerCase() === lValue);
+    if (!exist) {
+      this.newGenres.push(value.trim());
+      this.genres.push(value);
+    }
     this.genreInput.nativeElement.value = '';
     this.genreCtrl.setValue(null);
   }

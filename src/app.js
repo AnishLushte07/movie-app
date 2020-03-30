@@ -17,11 +17,19 @@ function startServer() {
   });
 }
 
+process.on('unhandledRejection', (reason, p) => {
+  logger.error('Unhandled Rejection at: Promise', p, 'reason:', reason);
+});
+
+process.on('uncaughtException', (err) => {
+  logger.error('uncaughtException', err);
+});
+
 mongoose.connect(config.DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }, function(err) {
-  if (err) return console.log(err);
+  if (err) return logger.error(err);
 
   startServer();
 });

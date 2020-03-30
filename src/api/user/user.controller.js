@@ -4,6 +4,7 @@ const UserModel = require('./user.model');
 
 async function login(req, res, next) {
     try {
+        console.log('lonlksdflk')
         // Only POST via application/x-www-form-urlencoded is acceptable
         if (req.method !== 'POST' ||
             !req.is('application/x-www-form-urlencoded')) {
