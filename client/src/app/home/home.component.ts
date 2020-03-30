@@ -123,7 +123,7 @@ export class HomeComponent implements AfterViewInit {
   }
 
   removeMovie(row, index) {  
-    this._httpClient.delete(`http://localhost:5000/api/movies/${row._id}`)
+    this._httpClient.delete(`api/movies/${row._id}`)
       .pipe(
         map(res => res),
         catchError((err) => throwError(err))
@@ -178,7 +178,7 @@ export class MovieHttpDatabase {
   getMovies(
     sort: string, order: string, page: number, search: string, genre: string
   ): Observable<any> {
-    const href = 'http://localhost:5000/api/movies';
+    const href = 'api/movies';
     const requestUrl =
         `${href}?search=${search}&genre=${genre}&sort=${sort}&order=${order}&page=${page + 1}`;
 

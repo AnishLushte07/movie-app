@@ -48,7 +48,7 @@ export class AuthService {
   login(data: object): Observable<any> {
     const body = this.transformToFormData(data);
 
-    return this.http.post(`http://localhost:5000/api/user/login`, body, {
+    return this.http.post(`api/user/login`, body, {
         headers: this.headers.append('ignoreAuthModule', 'true'),
     })
         .pipe(map(

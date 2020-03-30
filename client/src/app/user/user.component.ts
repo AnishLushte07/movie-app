@@ -43,7 +43,7 @@ export class UserComponent implements OnInit {
   }
 
   onSubmit() {
-    this.http.post(`http://localhost:5000/api/user`, this.user.value)
+    this.http.post(`api/user`, this.user.value)
       .pipe(
         map(res => res),
         catchError((err) => throwError(err))

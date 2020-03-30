@@ -18,7 +18,7 @@ export class GenreService {
   fetchList() {
     if (this.data.length) return of(this.data);
 
-    return this.http.get(`http://localhost:5000/api/genre`, {
+    return this.http.get(`api/genre`, {
       headers: this.headers.append('ignoreAuthModule', 'true'),
     })
         .pipe(map(

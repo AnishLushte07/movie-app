@@ -130,7 +130,7 @@ export class MovieComponent implements OnInit {
 
     this.movie.patchValue({ genre: this.genres });
     const method = this.isEdit ? 'put' : 'post';
-    let url = 'http://localhost:5000/api/movies';
+    let url = 'api/movies';
     
     if (this.isEdit) url = `${url}/${this.data._id}`;
 
