@@ -30,3 +30,8 @@ table {
   }
 }
 
+@media screen and (max-width: 575px) {
+  .mat-cell, .mat-header-cell {
+    padding-right: 8px;
+  }
+}

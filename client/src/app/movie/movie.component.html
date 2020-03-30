@@ -1,55 +1,56 @@
-<div class="movie-container">
-    <p>{{type}} Movie</p>
-    <form [formGroup]="movie" (ngSubmit)="onSubmit()" fxLayout="column" >
-        <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput type="text" placeholder="Name" formControlName="name" class="movie-inputs" id="movie-name">
-            <mat-error *ngIf="movie.get('name').invalid">Movie name is required</mat-error>
-        </mat-form-field>
-        <mat-form-field class="m-t-20">
-            <mat-label>Director</mat-label>
-            <input matInput type="text" placeholder="Director" formControlName="director" class="movie-inputs" id="movie-director">
-            <mat-error *ngIf="movie.get('director').invalid">Director name is required</mat-error>
-        </mat-form-field>
-        <mat-form-field class="m-t-20">
-            <mat-label>IMDB Score</mat-label>
-            <input matInput type="text" placeholder="IMDB score" formControlName="imdb_score" class="movie-inputs" id="movie-imdb-score">
-            <mat-error *ngIf="movie.get('imdb_score').invalid">IMDB score is required (Only numeric value)</mat-error>
-        </mat-form-field>
-        <mat-form-field class="m-t-20">
-            <mat-label>99popularity</mat-label>
-            <input matInput type="text" placeholder="99popularity" formControlName="99popularity" class="movie-inputs" id="movie-99popularity">
-            <mat-error *ngIf="movie.get('99popularity').invalid">99popularity is required (Only numeric value)</mat-error>
-        </mat-form-field>
-        <mat-form-field class="example-chip-list">
-            <mat-chip-list #chipList aria-label="Genre selection">
-              <mat-chip
-                *ngFor="let genre of genres"
-                [selectable]="selectable"
-                [removable]="removable"
-                (removed)="remove(genre)">
-                {{genre}}
-                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-              </mat-chip>
-              <input
-                placeholder="Genre"
-                #genreInput
-                [formControl]="genreCtrl"
-                [matAutocomplete]="auto"
-                [matChipInputFor]="chipList"
-                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                (matChipInputTokenEnd)="add($event)">
-            </mat-chip-list>
-            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-              <mat-option *ngFor="let genre of filteredGenres | async" [value]="genre">
-                {{genre}}
-              </mat-option>
-            </mat-autocomplete>
-            <mat-hint>Hit Enter OR Comma to create new Genre</mat-hint>
-        </mat-form-field>
-        <div class="mt-15">
-            <button mat-raised-button type="button" (click)="close()">Cancel</button>
-            <button class="ml-15" mat-raised-button color="primary" [disabled]="!movie.valid || !genres.length" type="submit">Save</button>
-        </div>
-    </form>
-</div>
+<mat-dialog-content>
+    <div class="movie-container">
+        <p>{{type}} Movie</p>
+        <form [formGroup]="movie" (ngSubmit)="onSubmit()" fxLayout="column">
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput type="text" placeholder="Name" formControlName="name" class="movie-inputs"
+                    id="movie-name">
+                <mat-error *ngIf="movie.get('name').invalid">Movie name is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="m-t-20">
+                <mat-label>Director</mat-label>
+                <input matInput type="text" placeholder="Director" formControlName="director" class="movie-inputs"
+                    id="movie-director">
+                <mat-error *ngIf="movie.get('director').invalid">Director name is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="m-t-20">
+                <mat-label>IMDB Score</mat-label>
+                <input matInput type="text" placeholder="IMDB score" formControlName="imdb_score" class="movie-inputs"
+                    id="movie-imdb-score">
+                <mat-error *ngIf="movie.get('imdb_score').invalid">IMDB score is required (Only numeric value)
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="m-t-20">
+                <mat-label>99popularity</mat-label>
+                <input matInput type="text" placeholder="99popularity" formControlName="99popularity"
+                    class="movie-inputs" id="movie-99popularity">
+                <mat-error *ngIf="movie.get('99popularity').invalid">99popularity is required (Only numeric value)
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-chip-list">
+                <mat-chip-list #chipList aria-label="Genre selection">
+                    <mat-chip *ngFor="let genre of genres" [selectable]="selectable" [removable]="removable"
+                        (removed)="remove(genre)">
+                        {{genre}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="Genre" #genreInput [formControl]="genreCtrl" [matAutocomplete]="auto"
+                        [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-option *ngFor="let genre of filteredGenres | async" [value]="genre">
+                        {{genre}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-hint>Hit Enter OR Comma to create new Genre</mat-hint>
+            </mat-form-field>
+            <div class="mt-15">
+                <button mat-raised-button type="button" (click)="close()">Cancel</button>
+                <button class="ml-15" mat-raised-button color="primary" [disabled]="!movie.valid || !genres.length"
+                    type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</mat-dialog-content>

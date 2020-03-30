@@ -1,9 +1,9 @@
 {
-  "name": "url-shortener-api",
+  "name": "movie-app",
   "version": "1.0.0",
-  "description": "URL shortener node api. ",
+  "description": "Get latest movies",
   "main": "src/index.js",
-  "scripts": {
+  "scripts": { 
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js"
   },
