@@ -108,7 +108,6 @@ export class MovieComponent implements OnInit {
     const lValue = value.toLowerCase();
     const exist = this.genres.some(genre => genre.toLowerCase() === lValue);
     if (!exist) {
-      this.newGenres.push(value.trim());
       this.genres.push(value);
     }
     this.genreInput.nativeElement.value = '';
