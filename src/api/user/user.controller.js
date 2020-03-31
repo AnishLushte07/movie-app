@@ -4,8 +4,6 @@ const UserModel = require('./user.model');
 
 async function login(req, res, next) {
     try {
-        console.log('lonlksdflk')
-        // Only POST via application/x-www-form-urlencoded is acceptable
         if (req.method !== 'POST' ||
             !req.is('application/x-www-form-urlencoded')) {
             return res.status(400).json({
@@ -43,6 +41,7 @@ async function create(req, res, next) {
             email: lEmail,
             password,
             name,
+            created_by: req.user._id,
         });
 
         return res.json();

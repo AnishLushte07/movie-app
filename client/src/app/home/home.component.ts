@@ -1,13 +1,13 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {merge, Observable, of as observableOf, fromEvent, Subject, throwError} from 'rxjs';
-import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { merge, Observable, of as observableOf, fromEvent, Subject, throwError } from 'rxjs';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MovieComponent } from '../movie/movie.component';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { FormControl } from '@angular/forms';
@@ -26,7 +26,7 @@ export class HomeComponent implements AfterViewInit {
   resultsLength = 0;
   isLoadingResults = true;
   search = '';
-  isLoggedIn:boolean = false;
+  isLoggedIn: boolean = false;
   movieSource = new MatTableDataSource<any>([]);
 
   visible = true;
@@ -73,7 +73,7 @@ export class HomeComponent implements AfterViewInit {
             this.paginator.pageIndex,
             this.search,
             this.genres.join(',')
-            );
+          );
         }),
         map(data => {
           this.isLoadingResults = false;
@@ -99,7 +99,7 @@ export class HomeComponent implements AfterViewInit {
     });
 
     this.genre.fetchList()
-      .subscribe((data: any)  => {
+      .subscribe((data: any) => {
         this.allGenres = data;
         this.genreCtrl.setValue('');
       });
@@ -119,10 +119,10 @@ export class HomeComponent implements AfterViewInit {
       }
 
       if (result) this.showError('Movie details updated.');
-    }); 
+    });
   }
 
-  removeMovie(row, index) {  
+  removeMovie(row, index) {
     this._httpClient.delete(`api/movies/${row._id}`)
       .pipe(
         map(res => res),
@@ -135,7 +135,7 @@ export class HomeComponent implements AfterViewInit {
           this.showError('Movie deleted successfully');
         },
         (err) => this.showError('Something went wrong')
-        );
+      );
   }
 
   showError(msg) {
@@ -173,14 +173,14 @@ export class HomeComponent implements AfterViewInit {
 export class MovieHttpDatabase {
   headers: HttpHeaders = new HttpHeaders();
 
-  constructor(private _httpClient: HttpClient) {}
+  constructor(private _httpClient: HttpClient) { }
 
   getMovies(
     sort: string, order: string, page: number, search: string, genre: string
   ): Observable<any> {
     const href = 'api/movies';
     const requestUrl =
-        `${href}?search=${search}&genre=${genre}&sort=${sort}&order=${order}&page=${page + 1}`;
+      `${href}?search=${search}&genre=${genre}&sort=${sort}&order=${order}&page=${page + 1}`;
 
     return this._httpClient.get<any>(requestUrl, {
       headers: this.headers.append('ignoreAuthModule', 'true'),

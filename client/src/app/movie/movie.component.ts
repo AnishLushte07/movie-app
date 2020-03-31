@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { GenreService } from '../genre.service';
 import { Observable, of, throwError } from 'rxjs';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
-import {MatChipInputEvent} from '@angular/material/chips';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { startWith, map, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -37,30 +37,30 @@ export class MovieComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private genre: GenreService,
     private http: HttpClient,
-  ) { 
-      this.data = this.data || {};
-      this.isEdit = !!this.data._id;
-      this.movie = new FormGroup({
-        name: new FormControl({ value: null, disabled: this.isEdit }, [Validators.required]),
-        director: new FormControl(null, [Validators.required]),
-        imdb_score: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+(.[0-9]{0,2})?$')]),
-        '99popularity': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+(.[0-9]{0,2})?$')]),
-        genre: new FormControl(null, [])
-      });
+  ) {
+    this.data = this.data || {};
+    this.isEdit = !!this.data._id;
+    this.movie = new FormGroup({
+      name: new FormControl({ value: null, disabled: this.isEdit }, [Validators.required]),
+      director: new FormControl(null, [Validators.required]),
+      imdb_score: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+(.[0-9]{0,2})?$')]),
+      '99popularity': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+(.[0-9]{0,2})?$')]),
+      genre: new FormControl(null, [])
+    });
 
-      this.filteredGenres = this.genreCtrl.valueChanges.pipe(
-        startWith(null),
-        map((genre: string | null) => genre ? this._filter(genre) : this.allGenres.slice()));
-    }
+    this.filteredGenres = this.genreCtrl.valueChanges.pipe(
+      startWith(null),
+      map((genre: string | null) => genre ? this._filter(genre) : this.allGenres.slice()));
+  }
 
   ngOnInit(): void {
     this.genres = this.data.genre || [];
     this.genre.fetchList()
-      .subscribe((data: any)  => {
+      .subscribe((data: any) => {
         this.allGenres = data;
         this.genreCtrl.setValue('');
       });
-    
+
     if (this.isEdit) {
       this.type = 'Edit';
       this.movie.patchValue({
@@ -89,14 +89,14 @@ export class MovieComponent implements OnInit {
     if (input) {
       input.value = '';
     }
-    
+
     this.genreCtrl.setValue(null);
   }
 
   remove(genre: string): void {
     const index = this.genres.indexOf(genre);
     const newIndex = this.newGenres.indexOf(genre);
- 
+
     if (index >= 0) {
       this.genres.splice(index, 1);
       this.newGenres.splice(newIndex, 1);
@@ -120,7 +120,7 @@ export class MovieComponent implements OnInit {
 
     return this.allGenres.filter(genre => genre.toLowerCase().indexOf(filterValue) === 0);
   }
-  
+
   close() {
     this.dialogRef.close();
   }
@@ -131,23 +131,23 @@ export class MovieComponent implements OnInit {
     this.movie.patchValue({ genre: this.genres });
     const method = this.isEdit ? 'put' : 'post';
     let url = 'api/movies';
-    
+
     if (this.isEdit) url = `${url}/${this.data._id}`;
 
     this.http[method](url, {
       ...this.movie.value,
       new_genres: this.newGenres,
     })
-        .pipe(
-          map(res => res),
-          catchError((err) => throwError(err))
-        )
-        .subscribe(
-          () => {
-            if (this.newGenres) this.genre.updateGenres(this.newGenres);
-            this.dialogRef.close(this.movie.value);
-          },
-            (err) => console.log(err)
-          );
+      .pipe(
+        map(res => res),
+        catchError((err) => throwError(err))
+      )
+      .subscribe(
+        () => {
+          if (this.newGenres) this.genre.updateGenres(this.newGenres);
+          this.dialogRef.close(this.movie.value);
+        },
+        (err) => console.log(err)
+      );
   }
 }

@@ -8,12 +8,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 
 export class GenreService {
-  data:any = [];
+  data: any = [];
   headers: HttpHeaders = new HttpHeaders();
 
   constructor(
     private http: HttpClient,
-  ) {}
+  ) { }
 
   fetchList() {
     if (this.data.length) return of(this.data);
@@ -21,13 +21,13 @@ export class GenreService {
     return this.http.get(`api/genre`, {
       headers: this.headers.append('ignoreAuthModule', 'true'),
     })
-        .pipe(map(
-          res => {
-            this.data = res;
-            return res;
-          },
-            catchError(err => throwError(err.error))
-        ));
+      .pipe(map(
+        res => {
+          this.data = res;
+          return res;
+        },
+        catchError(err => throwError(err.error))
+      ));
   }
 
   updateGenres(genres) {

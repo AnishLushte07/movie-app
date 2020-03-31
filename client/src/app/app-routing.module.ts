@@ -13,6 +13,10 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     pathMatch: 'full'
+  },{
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
   }
 ];
 

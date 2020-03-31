@@ -5,7 +5,13 @@ const GenreModel = require('../genre/genre.model');
 
 async function index(req, res, next) {
     try {
-        const { genre, search, page, sort, order } = req.query;
+        const { genre, search, page } = req.query;
+        let { sort, order } = req.query;
+        
+        if (sort === 'undefined') {
+            sort = 'created_on';
+            order = 'desc';
+        }
 
         const query = Object.assign({
             deleted_on: null
@@ -44,7 +50,10 @@ async function create(req, res, next) {
         
         if (!hasAll) return res.status(412).json({ message: 'Required fields missing' });
 
-        await MovieModel.create(body);
+        await MovieModel.create({
+            ..._.pick(body, requiredKeys),
+            created_by: req.user._id,
+        });
 
         if (body.new_genres) GenreModel.addNew(body.new_genres);
 
@@ -62,7 +71,7 @@ async function remove(req, res, next) {
             { _id },
             {
                 deleted_on: new Date(),
-                deleted_by: 1,
+                deleted_by: req.user._id,
             }
         );
 
@@ -84,7 +93,11 @@ async function update(req, res, next) {
 
         await MovieModel.findByIdAndUpdate(
             { _id },
-            _.pick(body, requiredKeys)
+            {
+                ..._.pick(body, requiredKeys),
+                updated_by: req.user._id,
+                updated_on: new Date(),
+            },
         );
 
         if (body.new_genres) GenreModel.addNew(body.new_genres);

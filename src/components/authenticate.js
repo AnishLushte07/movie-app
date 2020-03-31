@@ -12,9 +12,11 @@ async function authenticate(req, res, next) {
 
         const data = jwt.verify(token, JWT_KEY);
         
-        const user = await UserModel.count({ _id: data._id });
-
+        const user = await UserModel.findOne({ _id: data._id });
+        
         if (!user) return res.sendStatus(401);
+
+        req.user = user;
 
         next();
     } catch (err) {

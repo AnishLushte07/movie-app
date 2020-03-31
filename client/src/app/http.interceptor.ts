@@ -15,7 +15,7 @@ export class HttpTokenInterceptor implements HttpInterceptor {
 
   constructor(
     private router: Router
-  ) {}
+  ) { }
 
   private handleAuthError(err: HttpErrorResponse): Observable<any> {
     if (err.status === 401 || err.status === 403) {
@@ -30,25 +30,25 @@ export class HttpTokenInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let req = request;
     if (req.headers.get('ignoreAuthModule') === 'true') {
-        return next.handle(req);
+      return next.handle(req);
     }
 
     req = this.addAuthorizationHeader(req);
 
     return next.handle(req)
-      .pipe(catchError(x=> this.handleAuthError(x)));;
+      .pipe(catchError(x => this.handleAuthError(x)));;
   }
 
   private addAuthorizationHeader(request: HttpRequest<any>): HttpRequest<any> {
     if (request.url.indexOf('/api') && !localStorage.getItem('token')) {
-        const location = window.location;
-        
-        this.router.navigateByUrl(`/login`);
-        return null;
+      const location = window.location;
+
+      this.router.navigateByUrl(`/login`);
+      return null;
     }
 
     return request.clone({
-        setHeaders: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      setHeaders: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
   }
 }

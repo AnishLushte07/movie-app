@@ -16,8 +16,12 @@ const MovieSchema = new Schema({
 	director: { type : String },
 	genre: { type : Array },
     name: { type: String },
+    created_by: { type: Schema.Types.ObjectId },
+    created_on: { type: Date, default: Date.now },
+    deleted_by: { type: Schema.Types.ObjectId },
     deleted_on: { type: Date, default: null },
-    deleted_by: { type: Schema.Types.Number },
+    updated_by: { type: Schema.Types.ObjectId },
+    updated_on: { type: Date, default: null },
 }, options);
 
 module.exports = mongoose.model('Movie', MovieSchema);

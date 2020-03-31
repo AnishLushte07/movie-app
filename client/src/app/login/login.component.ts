@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
@@ -34,6 +34,6 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (data) => this.route.navigateByUrl('/'),
         (err) => this.errMsg = err.message
-        )
+      );
   }
 }

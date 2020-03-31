@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     public auth: AuthService,
     private dialog: MatDialog,
   ) {
-    
+
   }
 
   ngOnInit() {

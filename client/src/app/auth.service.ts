@@ -10,7 +10,7 @@ import { Observable, throwError, ReplaySubject } from 'rxjs';
 export class AuthService {
   headers: HttpHeaders = new HttpHeaders()
     .set('Content-Type', 'application/x-www-form-urlencoded');
-  
+
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
@@ -32,7 +32,7 @@ export class AuthService {
 
   private transformToFormData(data: object): string {
     const str = Object.entries(data)
-        .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
 
     return str.join('&');
   }
@@ -49,17 +49,17 @@ export class AuthService {
     const body = this.transformToFormData(data);
 
     return this.http.post(`api/user/login`, body, {
-        headers: this.headers.append('ignoreAuthModule', 'true'),
+      headers: this.headers.append('ignoreAuthModule', 'true'),
     })
-        .pipe(map(
-            (res: any) => {
-                localStorage.setItem('token', res.token);
-                localStorage.setItem('user', JSON.stringify(res.user));
-                this.setAuth();
-                return res;
-            }),
-            catchError(this.formatErrors)
-        );
+      .pipe(map(
+        (res: any) => {
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('user', JSON.stringify(res.user));
+          this.setAuth();
+          return res;
+        }),
+        catchError(this.formatErrors)
+      );
   }
 
   logout() {

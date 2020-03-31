@@ -24,6 +24,7 @@ const UserSchema = new Schema({
     name: { type : String },
     email: { type : String },
     password: { type : String },
+    created_by: { type: Schema.Types.ObjectId, default: null },
 	created_on: { type : Date, default: Date.now },
 }, options);
 
